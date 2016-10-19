@@ -7,13 +7,34 @@ popularity(miracle_rogue,8).
 popularity(midrange_shaman,10).
 popularity(renolock,7).
 popularity(dragon_warrior,9).
+popularity(beast_driud,8).
+popularity(token_driud,10).
+popularity(secret_hunter,8).
+popularity(midrange_hunter,7).
+popularity(tempo_mage,9).
+popularity(control_mage,7).
+popularity(dragon_paladin,6).
+popularity(dragon_priest,7).
+popularity(nzoth_rogue,9).
+popularity(malygos_rogue,8).
+popularity(aggro_shaman,8).
+popularity(evolve_shaman,6).
+popularity(zoolock,9).
+popularity(renouncelock,6).
+popularity(control_warrior,9).
+popularity(patron_warrior,7).
 
 
-
-most_popularity(X,Y) :-
-    deck_name(X),
-    popularity(X,Y),
-    \+ ((deck_name(Other), popularity(Other,Z), Z>Y)).
-
-check_deck(X, Input) :-
-  findall(X0, contain_with(X0, Input), X).
+most_popularity(Class,Type,Y,Name):-
+  class(Class),
+  type(Type),
+  deck_name(Name),
+  is_deck_type(Name,Type),
+  is_deck_match(Class,Name),
+  popularity(Name,Y),
+  \+ ((class(Class),
+  type(Type),
+  deck_name(Other),
+  deck_type(Other,Type),
+  deck_match(Class,Other),
+  popularity(Other,Z),Z>Y)).

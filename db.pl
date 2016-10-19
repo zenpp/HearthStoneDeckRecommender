@@ -1,19 +1,26 @@
+:- initialization(main).
+
 loaddb :-
   [card],
+  [cardvalue],
   [class],
   [combo],
   [deck_list],
+  [deck_match],
   [deck_name],
   [deck_type],
+  [dust],
+  [popularity],
   [replace],
   [type],
-  [popularity].
+  [recommend].
 
 menu :-
   nl,
-  write('What do you want to ask? [1 : Replace,2 : Recommend, other : Exit]'),nl,
+  write('What do you want to ask? [1 for Find replacement card, 2 for Recommend deck, other for Exit]'),nl,
   read(X),
-  ask(X).
+  ask(X),
+  X = _.
 
 main :-
   loaddb,
@@ -22,18 +29,56 @@ main :-
 ask(1) :-
   write('Find replacement for which card? [Input card name...]'), nl,
   read(X),
+  format('>>>> ~w can be replaced by : \n',[X]),
   replace(X,Y),
-  format('~w can be replaced by ~w',[X,Y]),
+  format('* ~w\n',[Y]),fail;true,
   menu.
-% ask(2) :-
-%   write('Which class do you want to play? [Input class name...]'), nl,
-%   read(Class),
-%   write('Which type do you want to play? [Input type name or leave blank to let system recommend.]'), nl,
-%   recommend(Class,Type).
-%   write('~w class should play ~w type' [Class,Type]),
-%   menu.
+
+ask(2) :-
+  writeln('Which class do you want to play?[Input class name]'),
+  write('mage|warrior|hunter|shaman|priest|warlock|driud|rogue|paladin'), nl,
+  read(Class),
+  writeln('Which type do you want to play? [Input type name or leave blank to let system recommend.]'),
+  write('aggro|combo|control|midrange|tempo'), nl,
+  read(Type),
+  recommend(Class,Type,Deck_name),
+  format('>>>> We recommend you to play deck name : ~w\n',[Deck_name]),
+  write('|--name of card--|--amount--|\n'),
+  write('-----------------------------\n'),
+  contain(Deck_name,Card_name,Amount),
+  format('| ~w = ~w \n',[Card_name,Amount]),fail;true,
+  menu.
 
 ask(3) :-
+  writeln('Recommend Crafting between two cards.'),
+  write('Input card 1 name : '), nl,
+  read(Card1),
+  write('Input card 2 name : '), nl,
+  read(Card2),
+  write('>>>> You should craft : '),
+  should_craft(Card1,Card2),
+  writeln(''),
+  menu.
+
+ask(4) :-
+  writeln('Recommend deck by input amount of dust.'),
+  write('Input your dust amount : '),nl,
+  read(X),
+  find_suitable_dust(X,Deck_Name,Amount),
+  format('* ~w : ~w dust\n',[Deck_Name,Amount]),fail;true,
+  write('Which deck would you like to craft : '),nl,
+  read(Selected_Deck),
+  write('-----------------------------------------\n'),
+  write('|--------name of card--------|--amount--|\n'),
+  write('-----------------------------------------\n'),
+  contain(Selected_Deck,Card_name,Amount),
+  dust(Card_name,Dust_amount),
+  format('| ~w => ~w cards ',[Card_name,Amount]),
+  format('(~w dust each)\n',[Dust_amount]),fail;true,
+
+  menu.
+
+ask(5) :-
     write('Goodbye').
 
 add_card_list(X, Entrylist) :-
@@ -43,5 +88,3 @@ add_card_list(X, Entrylist) :-
   ;  add_card_list(Resultlist, [Input|Entrylist])
   ),
   contain_with_test(X,Resultlist).
-
-:- initialization(main).
