@@ -6,7 +6,8 @@ loaddb :-
   [deck_name],
   [deck_type],
   [replace],
-  [type].
+  [type],
+  [popularity].
 
 menu :-
   nl,
