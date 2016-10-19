@@ -36,11 +36,12 @@ ask(1) :-
 ask(3) :-
     write('Goodbye').
 
-add_card_list(Resultlist, Entrylist) :-
+add_card_list(X, Entrylist) :-
   read(Input),
   (  Input = end
   -> reverse(Resultlist, Entrylist)
   ;  add_card_list(Resultlist, [Input|Entrylist])
-  ).
+  ),
+  contain_with_test(X,Resultlist).
 
 :- initialization(main).

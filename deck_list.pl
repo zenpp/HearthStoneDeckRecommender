@@ -186,5 +186,11 @@ contain_with(X,Y) :-
   deck_name(X),
   card(Y),
   ((Z is 1);(Z is 2)),
-  % append( contain(X,Y,Z),[],LL ).
   contain(X,Y,Z).
+
+contain_with_test(X,List) :-
+  deck_name(X),
+  nth0(I, List, CardName, R),
+  card(CardName),
+  ((Z is 1);(Z is 2)),
+  contain(X,CardName,Z).
