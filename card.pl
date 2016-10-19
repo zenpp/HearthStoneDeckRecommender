@@ -1367,8 +1367,6 @@ card(mind_control).
 card(debug).
 card(onethousand_stats_enchant).
 card(again).
-card(ai_buddy_-_all_charge_all_windfury).
-card(ai_buddy_-_blank_slate).
 card(all_charge_all_windfury_all_the_time).
 card(empty_enchant).
 card(fill_deck).
@@ -1385,11 +1383,6 @@ card(add_1_to_health).
 card(add_2_to_health).
 card(add_4_to_health).
 card(add_8_to_health).
-card(ai_buddy_-_all_charge).
-card(ai_buddy_-_damage_own_hero_5).
-card(ai_buddy_-_destroy_minions).
-card(ai_buddy_-_no_deck/hand).
-card(ai_helper_buddy).
 card(armor_1).
 card(armor_100).
 card(armor_5).
@@ -1436,7 +1429,6 @@ card(restore_5).
 card(restore_all_health).
 card(set_health_to_1).
 card(set_health_to_full).
-card(silence_-_debug).
 card(silence_and_destroy_all_minions).
 card(snake_ball).
 card(steal_card).
@@ -1444,8 +1436,6 @@ card(summon_a_random_secret).
 card(the_song_that_ends_the_world).
 card(weapon_buff).
 card(weapon_nerf).
-card(yogg-saron_test_(auto)).
-card(yogg-saron_test_(manual)).
 card(reward).
 card(captains_parrot).
 card(old_murk-eye).

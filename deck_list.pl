@@ -182,8 +182,8 @@ contain(dragon_warrior,nzoths_first_mate,1).
 contain(dragon_warrior,ravaging_ghoul,2).
 contain(dragon_warrior,blood_to_ichor,2).
 
-contain_with(X,Y,Z) :-
+contain_with(X,Y) :-
   deck_name(X),
   card(Y),
-  contain(X,Y,1);
-  contain(X,Y,2).
+  ((Z is 1);(Z is 2)),
+  contain(X,Y,Z).
