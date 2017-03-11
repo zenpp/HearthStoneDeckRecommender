@@ -17,7 +17,7 @@ loaddb :-
 
 menu :-
   nl,
-  write('What do you want to ask? [1 for Find replacement card, 2 for Recommend deck, other for Exit]'),nl,
+  write('What do you want to ask? [1 for Find replacement card, 2 for Recommend deck, 3 for Pair cards crafting suggestion, 4 for Deck crafing by dust amount, 5 for Exit]'),nl,
   read(X),
   ask(X),
   X = _.
@@ -38,11 +38,13 @@ ask(2) :-
   writeln('Which class do you want to play?[Input class name]'),
   write('mage|warrior|hunter|shaman|priest|warlock|driud|rogue|paladin'), nl,
   read(Class),
-  writeln('Which type do you want to play? [Input type name or leave blank to let system recommend.]'),
+  writeln('Which type do you want to play? [Input type name or type \'no\' to let system recommend.]'),
   write('aggro|combo|control|midrange|tempo'), nl,
   read(Type),
-  recommend(Class,Type,Deck_name),
+  (Type = no -> recommend(Class,_,Deck_name);recommend(Class,Type,Deck_name)),
+
   format('>>>> We recommend you to play deck name : ~w\n',[Deck_name]),
+  write('-----------------------------\n'),
   write('|--name of card--|--amount--|\n'),
   write('-----------------------------\n'),
   contain(Deck_name,Card_name,Amount),
@@ -73,18 +75,10 @@ ask(4) :-
   write('-----------------------------------------\n'),
   contain(Selected_Deck,Card_name,Amount),
   dust(Card_name,Dust_amount),
+  integer(Dust_amount),
   format('| ~w => ~w cards ',[Card_name,Amount]),
   format('(~w dust each)\n',[Dust_amount]),fail;true,
-
   menu.
 
 ask(5) :-
     write('Goodbye').
-
-add_card_list(X, Entrylist) :-
-  read(Input),
-  (  Input = end
-  -> reverse(Resultlist, Entrylist)
-  ;  add_card_list(Resultlist, [Input|Entrylist])
-  ),
-  contain_with_test(X,Resultlist).
